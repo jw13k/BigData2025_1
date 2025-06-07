@@ -13,7 +13,6 @@ output_dir = 'analysis_results_csv'
 # 📁 저장된 데이터 불러오기 함수
 @st.cache_data
 def load_saved_data():
-    # 저장된 CSV 파일들을 불러옵니다.
     data_frames = {}
     csv_files = {
         'gender_avg': 'gender_avg_usage_time.csv',
@@ -28,7 +27,6 @@ def load_saved_data():
         file_path = os.path.join(output_dir, filename)
         if os.path.exists(file_path):
             try:
-                # 'Unnamed: 0' 컬럼이 생성될 수 있으므로, index_col=0 지정 또는 제거
                 df = pd.read_csv(file_path, encoding='utf-8-sig', index_col=0 if key in ['gender_avg', 'usertype_avg'] else None)
                 data_frames[key] = df
             except Exception as e:
@@ -96,11 +94,9 @@ if 'rain_grouped' in saved_data:
                               values='이용시간(분)',
                               title='비 여부에 따른 평균 이용시간',
                               hole=.3,
-                              # textinfo='value', # <-- 이 줄을 제거했습니다.
                               hover_data=['이용시간(분)'],
                              )
-        # update_traces에서 textinfo와 texttemplate를 설정합니다.
-        fig_time_pie.update_traces(textinfo='value', # <-- 여기에 textinfo를 설정
+        fig_time_pie.update_traces(textinfo='value',
                                   texttemplate='%{value:.0f}분',
                                   hovertemplate='<b>%{label}</b><br>평균 이용시간: %{value:.0f}분<br>비율: %{percent}<extra></extra>')
         st.plotly_chart(fig_time_pie, use_container_width=True)
@@ -112,11 +108,9 @@ if 'rain_grouped' in saved_data:
                                   values='이용거리(M)',
                                   title='비 여부에 따른 평균 이용거리',
                                   hole=.3,
-                                  # textinfo='value', # <-- 이 줄을 제거했습니다.
                                   hover_data=['이용거리(M)'],
                                  )
-        # update_traces에서 textinfo와 texttemplate를 설정합니다.
-        fig_distance_pie.update_traces(textinfo='value', # <-- 여기에 textinfo를 설정
+        fig_distance_pie.update_traces(textinfo='value',
                                       texttemplate='%{value:.0f}M',
                                       hovertemplate='<b>%{label}</b><br>평균 이용거리: %{value:.0f}M<br>비율: %{percent}<extra></extra>')
         st.plotly_chart(fig_distance_pie, use_container_width=True)
