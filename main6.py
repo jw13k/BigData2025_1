@@ -119,7 +119,7 @@ else:
 
 # ---
 # ===== [시간대별 이용량 분석] =====
-st.subheader("⏳ 시간대별 대여 수 (혼잡 시간대)")
+st.subheader("⏳ 시간대별 대여 수")
 
 if 'hourly' in saved_data:
     fig3 = px.line(saved_data['hourly'], x='시간대', y='대여수', markers=True,
